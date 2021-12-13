@@ -3,12 +3,13 @@ package setup
 import (
 	"encoding/json"
 	"fmt"
+	"math/big"
+	"time"
+
 	"github.com/ethereum/go-ethereum/common"
 	"github.com/ethereum/go-ethereum/core"
 	"github.com/ethereum/go-ethereum/params"
 	"github.com/ethereum/hive/hivesim"
-	"math/big"
-	"time"
 )
 
 // The runtime deposit contract code, along with the storage that would otherwise have been initialized
@@ -60,7 +61,7 @@ type Eth1Genesis struct {
 	NetworkID      uint64
 }
 
-func BuildEth1Genesis() *Eth1Genesis {
+func BuildEth1Genesis(ttd *big.Int) *Eth1Genesis {
 	depositContractAddr := common.HexToAddress("0x4242424242424242424242424242424242424242")
 	var depositContractAcc core.GenesisAccount
 	if err := json.Unmarshal([]byte(embeddedDepositContract), &depositContractAcc); err != nil {
@@ -69,24 +70,23 @@ func BuildEth1Genesis() *Eth1Genesis {
 	return &Eth1Genesis{
 		Genesis: &core.Genesis{
 			Config: &params.ChainConfig{
-				ChainID:             big.NewInt(1),
-				HomesteadBlock:      big.NewInt(0),
-				DAOForkBlock:        nil,
-				DAOForkSupport:      false,
-				EIP150Block:         big.NewInt(0),
-				EIP150Hash:          common.Hash{},
-				EIP155Block:         big.NewInt(0),
-				EIP158Block:         big.NewInt(0),
-				ByzantiumBlock:      big.NewInt(0),
-				ConstantinopleBlock: big.NewInt(0),
-				PetersburgBlock:     big.NewInt(0),
-				IstanbulBlock:       big.NewInt(0),
-				MuirGlacierBlock:    big.NewInt(0),
-				BerlinBlock:         big.NewInt(0),
-				LondonBlock:         big.NewInt(0),
-				CatalystBlock:       nil, // TODO enable merge testing
-				Ethash:              nil,
-				Clique:              nil,
+				ChainID:                 big.NewInt(1),
+				HomesteadBlock:          big.NewInt(0),
+				DAOForkBlock:            nil,
+				DAOForkSupport:          false,
+				EIP150Block:             big.NewInt(0),
+				EIP150Hash:              common.Hash{},
+				EIP155Block:             big.NewInt(0),
+				EIP158Block:             big.NewInt(0),
+				ByzantiumBlock:          big.NewInt(0),
+				ConstantinopleBlock:     big.NewInt(0),
+				PetersburgBlock:         big.NewInt(0),
+				IstanbulBlock:           big.NewInt(0),
+				MuirGlacierBlock:        big.NewInt(0),
+				BerlinBlock:             big.NewInt(0),
+				LondonBlock:             big.NewInt(0),
+				TerminalTotalDifficulty: ttd,
+				Clique:                  nil,
 			},
 			Nonce:      0,
 			Timestamp:  uint64(time.Now().Unix()),
@@ -120,5 +120,6 @@ func (conf *Eth1Genesis) ToParams(depositAddress [20]byte) hivesim.Params {
 		"HIVE_FORK_MUIRGLACIER":    conf.Genesis.Config.MuirGlacierBlock.String(),
 		"HIVE_FORK_BERLIN":         conf.Genesis.Config.BerlinBlock.String(),
 		"HIVE_FORK_LONDON":         conf.Genesis.Config.LondonBlock.String(),
+		"HIVE_FORK_MERGE":          conf.Genesis.Config.TerminalTotalDifficulty.String(),
 	}
 }
