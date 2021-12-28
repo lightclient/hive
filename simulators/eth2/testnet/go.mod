@@ -6,6 +6,7 @@ require (
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/btcsuite/btcd v0.22.0-beta // indirect
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
+	github.com/davecgh/go-spew v1.1.1
 	github.com/ethereum/go-ethereum v1.10.13
 	github.com/ethereum/hive v0.0.0-20210901190357-cd81b24b2ac6
 	github.com/go-stack/stack v1.8.1 // indirect

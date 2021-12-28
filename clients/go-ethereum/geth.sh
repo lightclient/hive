@@ -77,7 +77,7 @@ fi
 
 # Handle any client mode or operation requests
 if [ "$HIVE_NODETYPE" == "full" ]; then
-	FLAGS="$FLAGS --syncmode fast "
+	FLAGS="$FLAGS --syncmode full "
 fi
 if [ "$HIVE_NODETYPE" == "light" ]; then
 	FLAGS="$FLAGS --syncmode light "
