@@ -2,6 +2,8 @@ module github.com/ethereum/hive/simulators/eth2/testnet
 
 go 1.16
 
+replace github.com/protolambda/zrnt => /home/matt/dev/zrnt
+
 require (
 	github.com/StackExchange/wmi v1.2.1 // indirect
 	github.com/btcsuite/btcd v0.22.0-beta // indirect
