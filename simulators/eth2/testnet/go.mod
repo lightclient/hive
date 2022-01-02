@@ -29,4 +29,5 @@ require (
 	github.com/wealdtech/go-eth2-util v1.6.5
 	golang.org/x/sys v0.0.0-20210910150752-751e447fb3d0 // indirect
 	golang.org/x/text v0.3.7 // indirect
+	gopkg.in/yaml.v2 v2.4.0 // indirect
 )
