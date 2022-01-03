@@ -25,21 +25,17 @@ require (
 	github.com/cespare/xxhash/v2 v2.1.2 // indirect
 	github.com/davecgh/go-spew v1.1.1
 	github.com/go-stack/stack v1.8.1 // indirect
-	github.com/golang/snappy v0.0.4 // indirect
-	github.com/gorilla/websocket v1.4.2 // indirect
-	github.com/hashicorp/golang-lru v0.5.5-0.20210104140557-80c98217689d // indirect
-	github.com/holiman/bloomfilter/v2 v2.0.3 // indirect
-	github.com/holiman/uint256 v1.2.0 // indirect
-	github.com/julienschmidt/httprouter v1.3.0 // indirect
-	github.com/kilic/bls12-381 v0.1.0 // indirect
-	github.com/klauspost/cpuid/v2 v2.0.9 // indirect
+	github.com/google/uuid v1.3.0
+	github.com/herumi/bls-eth-go-binary v0.0.0-20210902234237-7763804ee078
 	github.com/mattn/go-runewidth v0.0.13 // indirect
 	github.com/minio/sha256-simd v1.0.0 // indirect
 	github.com/mitchellh/mapstructure v1.4.2 // indirect
 	github.com/olekukonko/tablewriter v0.0.5 // indirect
 	github.com/prometheus/tsdb v0.10.0 // indirect
 	github.com/protolambda/bls12-381-util v0.0.0-20210812140640-b03868185758 // indirect
-	github.com/rivo/uniseg v0.2.0 // indirect
+	github.com/protolambda/eth2api v0.0.0-20211003135243-f12829c6e6e4
+	github.com/protolambda/go-keystorev4 v0.0.0-20210914214957-cf12d9c28a52
+	github.com/protolambda/zrnt v0.23.0
 	github.com/shirou/gopsutil v3.21.8+incompatible // indirect
 	github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 // indirect
 	github.com/tklauser/go-sysconf v0.3.9 // indirect
@@ -49,5 +45,5 @@ require (
 	golang.org/x/crypto v0.0.0-20211202192323-5770296d904e // indirect
 	golang.org/x/sys v0.0.0-20211124211545-fe61309f8881 // indirect
 	golang.org/x/text v0.3.7 // indirect
-	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v2 v2.4.0
 )

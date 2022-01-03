@@ -114,10 +114,18 @@ github.com/edsrzf/mmap-go v1.0.0 h1:CEBF7HpRnUCSJgGUb5h1Gm7e3VkmVDrR8lvWVLtrOFw=
 github.com/edsrzf/mmap-go v1.0.0/go.mod h1:YO35OhQPt3KJa3ryjFM5Bs14WD66h8eGKpfaBNrHW5M=
 github.com/envoyproxy/go-control-plane v0.9.1-0.20191026205805-5f8ba28d4473/go.mod h1:YTl/9mNaCwkRvm6d1a2C3ymFceY/DCBVvsKhRF0iEA4=
 github.com/envoyproxy/protoc-gen-validate v0.1.0/go.mod h1:iSmxcyjqTsJpI2R4NaDN7+kN2VEUnK/pcBlmesArF7c=
+<<<<<<< HEAD
 github.com/ethereum/go-ethereum v1.10.15 h1:E9o0kMbD8HXhp7g6UwIwntY05WTDheCGziMhegcBsQw=
 github.com/ethereum/go-ethereum v1.10.15/go.mod h1:W3yfrFyL9C1pHcwY5hmRHVDaorTiQxhYBkKyu5mEDHw=
 github.com/ethereum/hive v0.0.0-20220128105037-16a0eb39b4a2 h1:D8KEHhPq33/J1xLKytfYpziNnpdOV7n9DXxm4criKzk=
 github.com/ethereum/hive v0.0.0-20220128105037-16a0eb39b4a2/go.mod h1:xptEyWnRW33B208ZrXXvkDpnP/BCvsigi/vir2TxruM=
+=======
+github.com/ethereum/go-ethereum v1.10.4/go.mod h1:nEE0TP5MtxGzOMd7egIrbPJMQBnhVU3ELNxhBglIzhg=
+github.com/ethereum/go-ethereum v1.10.13 h1:DEYFP9zk+Gruf3ae1JOJVhNmxK28ee+sMELPLgYTXpA=
+github.com/ethereum/go-ethereum v1.10.13/go.mod h1:W3yfrFyL9C1pHcwY5hmRHVDaorTiQxhYBkKyu5mEDHw=
+github.com/ethereum/hive v0.0.0-20210901190357-cd81b24b2ac6 h1:Ft7Bly9eIj/XQqKksUglLB4qmfxv1vBvls+6YwfqZVM=
+github.com/ethereum/hive v0.0.0-20210901190357-cd81b24b2ac6/go.mod h1:tQ4qCIOQeVsJJ9G4C0dKVj7OktvPjFFTXdUNtIMezM8=
+>>>>>>> housekeeping
 github.com/fatih/color v1.7.0/go.mod h1:Zm6kSWBoL9eyXnKyktHP6abPY2pDugNf5KwzbycvMj4=
 github.com/ferranbt/fastssz v0.0.0-20210526181520-7df50c8568f8/go.mod h1:DyEu2iuLBnb/T51BlsiO3yLYdJC6UbGMrIkqK1KmQxM=
 github.com/ferranbt/fastssz v0.0.0-20210905181407-59cf6761a7d5 h1:6dVcS0LktRSyEEgldFY4N9J17WjUoiJStttH+RZj0Wo=
@@ -268,6 +276,10 @@ github.com/konsorten/go-windows-terminal-sequences v1.0.1/go.mod h1:T0+1ngSBFLxv
 github.com/kr/logfmt v0.0.0-20140226030751-b84e30acd515 h1:T+h1c/A9Gawja4Y9mFVWj2vyii2bbUNDw3kt9VxK2EY=
 github.com/kr/logfmt v0.0.0-20140226030751-b84e30acd515/go.mod h1:+0opPa2QZZtGFBFZlji/RkVcI2GknAs/DXo4wKdlNEc=
 github.com/kr/pretty v0.1.0/go.mod h1:dAy3ld7l9f0ibDNOQOHHMYYIIbhfbHSm3C4ZsoJORNo=
+<<<<<<< HEAD
+=======
+github.com/kr/pretty v0.2.0/go.mod h1:ipq/a2n7PKx3OHsz4KJII5eveXtPO4qwEXGdVfWzfnI=
+>>>>>>> housekeeping
 github.com/kr/pretty v0.2.1 h1:Fmg33tUaq4/8ym9TJN1x7sLJnHVwhP33CNkpYV/7rwI=
 github.com/kr/pretty v0.2.1/go.mod h1:ipq/a2n7PKx3OHsz4KJII5eveXtPO4qwEXGdVfWzfnI=
 github.com/kr/pty v1.1.1/go.mod h1:pFQYn66WHrOpPYNljwOMqo10TkYh1fy3cYio2l3bCsQ=
@@ -367,9 +379,12 @@ github.com/protolambda/eth2api v0.0.0-20211003135243-f12829c6e6e4/go.mod h1:L8zQ
 github.com/protolambda/go-keystorev4 v0.0.0-20210914214957-cf12d9c28a52 h1:5znmcOBjXNx2ox6KXpBRAoIuDOCw7ZV+2Xb6yZ7M0K0=
 github.com/protolambda/go-keystorev4 v0.0.0-20210914214957-cf12d9c28a52/go.mod h1:Xda3KO8+DMyWaTr+LwUUpVRTB5SdFzoKu0ivXNI6p1s=
 github.com/protolambda/messagediff v1.4.0/go.mod h1:LboJp0EwIbJsePYpzh5Op/9G1/4mIztMRYzzwR0dR2M=
+<<<<<<< HEAD
 github.com/protolambda/zrnt v0.19.0/go.mod h1:rVf0RX8t7xrbSdzbVtw9ZuRqtCoFWnACT7OCHl6DiFk=
 github.com/protolambda/zrnt v0.23.0 h1:49BveyLHZbnXK5tYVXr1nvn9TiT2oBHGHq0usak6shE=
 github.com/protolambda/zrnt v0.23.0/go.mod h1:rVf0RX8t7xrbSdzbVtw9ZuRqtCoFWnACT7OCHl6DiFk=
+=======
+>>>>>>> housekeeping
 github.com/protolambda/ztyp v0.1.8/go.mod h1:u9yT4ioIokwlHrOfiZ52ezHfKdza3phxhTJix01vGgU=
 github.com/protolambda/ztyp v0.1.9 h1:TEQvOTihEf89grFJMOZA1DrJ4B6M1Cg35U3WRSTdgew=
 github.com/protolambda/ztyp v0.1.9/go.mod h1:NAGmX7+zlkxxv7F5ATHrdXwZFtkQjAUinDgg7RAV29k=
@@ -404,6 +419,10 @@ github.com/stretchr/testify v1.4.0/go.mod h1:j7eGeouHqKxXV5pUuKE4zz7dFj8WfuZ+81P
 github.com/stretchr/testify v1.5.1/go.mod h1:5W2xD1RspED5o8YsWQXVCued0rvSQ+mT+I5cxcmMvtA=
 github.com/stretchr/testify v1.7.0 h1:nwc3DEeHmmLAfoZucVR881uASk0Mfjw8xYJ99tb5CcY=
 github.com/stretchr/testify v1.7.0/go.mod h1:6Fq8oRcR53rry900zMqJjRRixrwX3KX962/h/Wwjteg=
+<<<<<<< HEAD
+=======
+github.com/syndtr/goleveldb v1.0.1-0.20210305035536-64b5b1c73954/go.mod h1:u2MKkTVTVJWe5D1rCvame8WqhBd88EuIwODJZ1VHCPM=
+>>>>>>> housekeeping
 github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7 h1:epCh84lMvA70Z7CTTCmYQn2CKbY8j86K7/FAIr141uY=
 github.com/syndtr/goleveldb v1.0.1-0.20210819022825-2ae1ddf74ef7/go.mod h1:q4W45IWZaF22tdD+VEXcAWRA037jwmWEB5VWYORlTpc=
 github.com/tinylib/msgp v1.0.2/go.mod h1:+d+yLhGm8mzTaHzB+wgMYrodPfmZrzkirds8fDWklFE=
