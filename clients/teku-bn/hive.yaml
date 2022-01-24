@@ -1,0 +1,6 @@
+roles:
+  - beacon
+
+# TODO: although teku can host validators at the same time as validators,
+# it would not attach to another beacon-node in this mixed-mode, thus it cannot have the "validator" role here.
+# A "beacon-validator-combi" role would need to be created to setup this type of operation instead.
