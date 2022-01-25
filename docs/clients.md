@@ -135,6 +135,73 @@ may map these to command line flags or use them generate a config file, for exam
 | `HIVE_FORK_BERLIN`         | decimal              | [Berlin][EIP-2070] transition block            |
 | `HIVE_FORK_LONDON`         | decimal              | [London][london-spec] transition block         |
 
+### Enode script
+
+Some tests require peer-to-peer node information of the client instance. The client
+container must contain an `/enode.sh` script that echoes the enode of the running
+instance. This script is executed by the Hive host in order to retrieve the enode URL.
+
+## Beacon Client Requirements
+
+This section describes the requirements for Ethereum beacon client wrappers in
+hive. Client entry point scripts must support this interface in order to be
+used by Ethereum merge-specific simulators. The simulators require the `beacon`
+client role.
+
+Clients must provide the [beacon api][beacon-api] over HTTP on TCP port 4000.
+
+### Files
+
+The simulator may customize client startup by placing these files into the client container:
+
+- `/hive/input/genesis.ssz` contains SSZ encoded genesis state. This file is
+  mandatory.
+- `/hive/input/config.yaml` contains a configuration file for the testnet
+  parameters. This file is required.
+
+### Environment
+
+Clients must support the following environment variables. The client's entry point script
+may map these to command line flags or use them generate a config file, for example.
+
+| Variable                     | Value                |                                                |
+|------------------------------|----------------------|------------------------------------------------|
+| `HIVE_LOGLEVEL`              | 0 - 5                | configures log level of client                 |
+| `HIVE_ETH2_BOOTNODE_ENRS`    | enode URL            | makes client connect to another node           |
+| `HIVE_ETH2_ETH1_RPC_ADDRS`   | URL                  | URL to execution client JSON-RPC               |
+| `HIVE_ETH2_MERGE_ENABLED`    | decimal              | [Bellatrix][bellatrix] transition epoch        |
+| `HIVE_ETH2_P2P_TARGET_PEERS` | decimal              | target peer count for the beacon client        |
+
+## Validator Client Requirements
+
+This section describes the requirements for Ethereum validator client wrappers
+in hive. Client entry point scripts must support this interface in order to be
+by used by Ethereum merge-specific simulators. The simulators require the
+`validator` client role.
+
+Clients must provide the [beacon api][beacon-api] over HTTP on TCP port 4000.
+
+### Files
+
+The simulator must provide the client with the validator data for which the
+client will be validating as:
+
+- `/hive/input/keystores/{pubkey}/keystore.json` is an [EIP-2335][EIP-2335]
+  encoded file for each validator.
+- `/hive/input/secrets/{pubkey}.txt` is an [EIP-2335][EIP-2335] passphrase
+  encoded as plain text.
+
+### Environment
+
+Clients must support the following environment variables. The client's entry point script
+may map these to command line flags or use them generate a config file, for example.
+
+| Variable                   | Value                |                                                |
+|----------------------------|----------------------|------------------------------------------------|
+| `HIVE_LOGLEVEL`            | 0 - 5                | configures log level of client                 |
+| `HIVE_MINER`               | address              | if set, mining is enabled. value is coinbase   |
+| `HIVE_ETH2_BN_API_IP`      | IP address            | makes client connect to another node           |
+
 [geth-docker]: ../clients/go-ethereum/Dockerfile
 [oe-genesis-jq]: ../clients/openethereum/mapper.jq
 [EIP-155]: https://eips.ethereum.org/EIPS/eip-155
@@ -153,3 +220,6 @@ may map these to command line flags or use them generate a config file, for exam
 [Hive Commands]: ./commandline.md
 [Simulators]: ./simulators.md
 [Clients]: ./clients.md
+[beacon-api]: https://github.com/ethereum/beacon-APIs
+[bellatrix]: https://github.com/ethereum/consensus-specs/tree/dev/specs/bellatrix
+[EIP-2335]: https://eips.ethereum.org/EIPS/eip-2335
