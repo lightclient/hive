@@ -26,8 +26,12 @@ func startTestnet(t *hivesim.T, env *testEnv, config *config) *Testnet {
 	// for each key partition, we start a validator client with its own beacon node and eth1 node
 	for i, node := range config.Nodes {
 		prep.startEth1Node(testnet, env.Clients.ClientByNameAndRole(node.ExecutionClient, "eth1"), config.ShouldMine)
-		prep.startBeaconNode(testnet, env.Clients.ClientByNameAndRole(fmt.Sprintf("%s-bn", node.ConsensusClient), "beacon"), []int{i})
-		prep.startValidatorClient(testnet, env.Clients.ClientByNameAndRole(fmt.Sprintf("%s-vc", node.ConsensusClient), "validator"), i, i)
+		if combo := env.Clients.ClientByNameAndRole(node.ConsensusClient, "beacon-validator"); combo != nil {
+			prep.startComboClient(testnet, combo, []int{i}, i)
+		} else {
+			prep.startBeaconNode(testnet, env.Clients.ClientByNameAndRole(fmt.Sprintf("%s-bn", node.ConsensusClient), "beacon"), []int{i})
+			prep.startValidatorClient(testnet, env.Clients.ClientByNameAndRole(fmt.Sprintf("%s-vc", node.ConsensusClient), "validator"), i, i)
+		}
 	}
 
 	return testnet

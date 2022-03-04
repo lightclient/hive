@@ -178,24 +178,8 @@ func (p *PreparedTestnet) startEth1Node(testnet *Testnet, eth1Def *hivesim.Clien
 func (p *PreparedTestnet) startBeaconNode(testnet *Testnet, beaconDef *hivesim.ClientDefinition, eth1Endpoints []int) {
 	testnet.t.Logf("Starting beacon node: %s (%s)", beaconDef.Name, beaconDef.Version)
 
-	opts := []hivesim.StartOption{p.beaconOpts}
-	// Hook up beacon node to (maybe multiple) eth1 nodes
-	for _, index := range eth1Endpoints {
-		if index < 0 || index >= len(testnet.eth1) {
-			testnet.t.Fatalf("only have %d eth1 nodes, cannot find index %d for BN", len(testnet.eth1), index)
-		}
-	}
-
-	var addrs []string
-	for _, index := range eth1Endpoints {
-		eth1Node := testnet.eth1[index]
-		userRPC, err := eth1Node.UserRPCAddress()
-		if err != nil {
-			testnet.t.Fatalf("eth1 node used for beacon without available RPC: %v", err)
-		}
-		addrs = append(addrs, userRPC)
-	}
-	opts = append(opts, hivesim.Params{"HIVE_ETH2_ETH1_RPC_ADDRS": strings.Join(addrs, ",")})
+	addrs := testnet.GetEth1Addresses(eth1Endpoints)
+	opts := []hivesim.StartOption{p.beaconOpts, hivesim.Params{"HIVE_ETH2_ETH1_RPC_ADDRS": strings.Join(addrs, ",")}}
 
 	if len(testnet.beacons) > 0 {
 		bootnodeENR, err := testnet.beacons[0].ENR()
@@ -234,5 +218,29 @@ func (p *PreparedTestnet) startValidatorClient(testnet *Testnet, validatorDef *h
 	//	opts = append(opts, hivesim.WithBuildTarget(p.configName))
 	//}
 	vc := &ValidatorClient{testnet.t.StartClient(validatorDef.Name, opts...), p.keyTranches[keyIndex]}
+	testnet.validators = append(testnet.validators, vc)
+}
+
+func (p *PreparedTestnet) startComboClient(testnet *Testnet, client *hivesim.ClientDefinition, eth1Endpoints []int, keyIndex int) {
+	testnet.t.Logf("Starting combo client: %s (%s)", client.Name, client.Version)
+	if keyIndex >= len(p.keyTranches) {
+		testnet.t.Fatalf("only have %d key tranches, cannot find index %d for VC", len(p.keyTranches), keyIndex)
+	}
+	keysOpt := setup.KeysBundle(p.keyTranches[keyIndex])
+	addrs := testnet.GetEth1Addresses(eth1Endpoints)
+	opts := []hivesim.StartOption{p.beaconOpts, p.validatorOpts, keysOpt, hivesim.Params{"HIVE_ETH2_ETH1_RPC_ADDRS": strings.Join(addrs, ",")}}
+
+	if len(testnet.beacons) > 0 {
+		bootnodeENR, err := testnet.beacons[0].ENR()
+		if err != nil {
+			testnet.t.Fatalf("failed to get ENR as bootnode for beacon node: %v", err)
+		}
+		opts = append(opts, hivesim.Params{"HIVE_ETH2_BOOTNODE_ENRS": bootnodeENR})
+	}
+
+	c := testnet.t.StartClient(client.Name, opts...)
+	bn := NewBeaconNode(c)
+	vc := &ValidatorClient{c, p.keyTranches[keyIndex]}
+	testnet.beacons = append(testnet.beacons, bn)
 	testnet.validators = append(testnet.validators, vc)
 }

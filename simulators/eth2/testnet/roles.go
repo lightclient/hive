@@ -3,11 +3,11 @@ package main
 import "github.com/ethereum/hive/hivesim"
 
 type ClientDefinitionsByRole struct {
-	Beacon             []*hivesim.ClientDefinition `json:"beacon"`
-	Validator          []*hivesim.ClientDefinition `json:"validator"`
-	BeaconAndValidator []*hivesim.ClientDefinition `json:"beaconAndValidator"`
-	Eth1               []*hivesim.ClientDefinition `json:"eth1"`
-	Other              []*hivesim.ClientDefinition `json:"Other"`
+	Beacon          []*hivesim.ClientDefinition `json:"beacon"`
+	Validator       []*hivesim.ClientDefinition `json:"validator"`
+	BeaconValidator []*hivesim.ClientDefinition `json:"beaconValidator"`
+	Eth1            []*hivesim.ClientDefinition `json:"eth1"`
+	Other           []*hivesim.ClientDefinition `json:"Other"`
 }
 
 func ClientsByRole(available []*hivesim.ClientDefinition) *ClientDefinitionsByRole {
@@ -20,7 +20,7 @@ func ClientsByRole(available []*hivesim.ClientDefinition) *ClientDefinitionsByRo
 			out.Validator = append(out.Validator, client)
 		}
 		if client.HasRole("beacon-validator") {
-			out.BeaconAndValidator = append(out.BeaconAndValidator, client)
+			out.BeaconValidator = append(out.BeaconValidator, client)
 		}
 		if client.HasRole("eth1") {
 			out.Eth1 = append(out.Eth1, client)
@@ -36,7 +36,7 @@ func (c *ClientDefinitionsByRole) ClientByNameAndRole(name, role string) *hivesi
 	case "validator":
 		return byName(c.Validator, name)
 	case "beacon-validator":
-		return byName(c.BeaconAndValidator, name)
+		return byName(c.BeaconValidator, name)
 	case "eth1":
 		return byName(c.Eth1, name)
 	}
@@ -60,7 +60,7 @@ func (c *ClientDefinitionsByRole) Combinations() []node {
 		}
 	}
 	for _, eth1 := range c.Eth1 {
-		for _, combo := range c.BeaconAndValidator {
+		for _, combo := range c.BeaconValidator {
 			nodes = append(nodes, node{eth1.Name, combo.Name})
 		}
 	}

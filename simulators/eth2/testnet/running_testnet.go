@@ -51,6 +51,21 @@ func (t *Testnet) ValidatorClientIndex(pk [48]byte) (int, error) {
 	return 0, fmt.Errorf("key not found in any validator client")
 }
 
+func (t *Testnet) GetEth1Addresses(indexes []int) []string {
+	var addrs []string
+	for _, index := range indexes {
+		if index < 0 || index >= len(t.eth1) {
+			t.t.Fatalf("only have %d eth1 nodes, cannot find index %d for BN", len(t.eth1), index)
+		}
+		userRPC, err := t.eth1[index].UserRPCAddress()
+		if err != nil {
+			t.t.Fatalf("eth1 node used for beacon without available RPC: %v", err)
+		}
+		addrs = append(addrs, userRPC)
+	}
+	return addrs
+}
+
 // WaitForFinality blocks until a beacon client reaches finality.
 func (t *Testnet) WaitForFinality(ctx context.Context) (common.Checkpoint, error) {
 	genesis := t.GenesisTime()

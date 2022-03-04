@@ -29,11 +29,8 @@ func main() {
 			if len(c.Eth1) != 1 {
 				t.Fatalf("choose 1 eth1 client type")
 			}
-			if len(c.Beacon) != 1 {
-				t.Fatalf("choose 1 beacon client type")
-			}
-			if len(c.Validator) != 1 {
-				t.Fatalf("choose 1 validator client type")
+			if len(c.BeaconValidator) < 1 && (len(c.Beacon) < 1 && len(c.Validator) < 1) {
+				t.Fatalf("choose at least 1 consensus client combination")
 			}
 			runAllTests(t, c)
 		},
