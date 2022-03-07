@@ -74,7 +74,7 @@ func TransitionTestnet(t *hivesim.T, env *testEnv, n node) {
 		TerminalTotalDifficulty: TERMINCAL_TOTAL_DIFFICULTY,
 		Nodes: []node{
 			n,
-			n,
+			// n,
 		},
 		ShouldMine: true,
 	}

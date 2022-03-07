@@ -56,6 +56,7 @@ cd /opt/teku
     --p2p-peer-lower-bound="${HIVE_ETH2_P2P_TARGET_PEERS:-10}" \
     --p2p-discovery-enabled=true \
     --rest-api-enabled=true \
+    --rest-api-docs-enabled=true \
     --rest-api-interface=0.0.0.0 \
     --rest-api-port="${HIVE_ETH2_BN_API_PORT:-4000}" \
     --rest-api-host-allowlist="*" \
