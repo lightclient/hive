@@ -3,6 +3,8 @@
 # Immediately abort the script on any error encountered
 set -e
 
+teku=/opt/teku/bin/teku
+
 mkdir -p /data/vc
 mkdir -p /data/validators
 mkdir -p /data/secrets
@@ -19,7 +21,7 @@ done
 
 LOG=info
 case "$HIVE_LOGLEVEL" in
-    0|1) LOG=error ;;
+    0|1) LOG=fatal ;;
     2)   LOG=warn  ;;
     3)   LOG=info  ;;
     4)   LOG=debug ;;
@@ -28,13 +30,17 @@ esac
 
 cd /opt/teku
 
-/opt/teku/bin/teku \
-    --logging="$LOG" \
+FLAGS="
+    --logging=$LOG \
     --log-destination=CONSOLE \
     --data-path=/data/vc \
     vc \
     --network=auto \
-    --validator-keys="/data/validators:/data/secrets" \
+    --validator-keys=/data/validators:/data/secrets \
     --validators-keystore-locking-enabled=false \
-    --beacon-node-api-endpoint="http://$HIVE_ETH2_BN_API_IP:$HIVE_ETH2_BN_API_PORT" \
-    --Xvalidators-proposer-default-fee-recipient="${HIVE_MINER:-"0x1111111111111111111111111111111111111111"}"
+    --beacon-node-api-endpoint=http://$HIVE_ETH2_BN_API_IP:$HIVE_ETH2_BN_API_PORT \
+    --Xvalidators-proposer-default-fee-recipient=${HIVE_MINER:-"0x1111111111111111111111111111111111111111"}
+"
+
+echo "Running teku-vc with flags $FLAGS"
+$teku $FLAGS
