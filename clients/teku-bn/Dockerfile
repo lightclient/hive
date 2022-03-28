@@ -12,4 +12,3 @@ RUN echo "latest" > /version.txt
 
 USER teku
 ENTRYPOINT ["/teku_bn.sh"]
-

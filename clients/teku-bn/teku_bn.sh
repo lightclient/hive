@@ -60,6 +60,8 @@ FLAGS="
     --rest-api-port=${HIVE_ETH2_BN_API_PORT:-4000} \
     --rest-api-host-allowlist=* \
     --Xvalidators-proposer-default-fee-recipient=${HIVE_MINER:-"0x1111111111111111111111111111111111111111"}
+    --Xstartup-target-peer-count=0
+    --Xee-version=kiln
 "
 
 echo "Running teku-bn with flags $FLAGS"
