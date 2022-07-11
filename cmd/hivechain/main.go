@@ -25,6 +25,7 @@ import (
 	"fmt"
 	"io"
 	"os"
+	"strconv"
 
 	"github.com/ethereum/go-ethereum/consensus/ethash"
 	"github.com/ethereum/go-ethereum/core/types"
@@ -48,6 +49,8 @@ func main() {
 		generateCommand(os.Args[2:])
 	case "print":
 		printCommand(os.Args[2:])
+	case "print-block":
+		printBlockCommand(os.Args[2:])
 	case "print-genesis":
 		printGenesisCommand(os.Args[2:])
 	case "trim":
@@ -105,6 +108,39 @@ func printGenesisCommand(args []string) {
 	block := gspec.ToBlock(nil)
 	js, _ := json.MarshalIndent(block.Header(), "", "  ")
 	fmt.Println(string(js))
+}
+
+// printGenesisCommand displays the genesis post-state.
+func printBlockCommand(args []string) {
+	flag.CommandLine.Parse(args)
+	if flag.NArg() != 2 {
+		fatalf("Usage: hivechain print-block <chain.rlp> <number>")
+	}
+
+	num, err := strconv.ParseUint(flag.Arg(1), 10, 1)
+	if err != nil {
+		fatalf("unable to parse block number: %v", err)
+	}
+	file, err := os.Open(flag.Arg(0))
+	if err != nil {
+		fatal(err)
+	}
+	defer file.Close()
+
+	s := rlp.NewStream(bufio.NewReader(file), 0)
+	for i := 0; ; i++ {
+		var block types.Block
+		err := s.Decode(&block)
+		if err == io.EOF {
+			fatalf("block %d not found", num)
+		} else if err != nil {
+			fatalf("%d: %v", i, err)
+		}
+		if block.Number().Uint64() == num {
+			js, _ := json.MarshalIndent(block.Header(), "", "  ")
+			fmt.Printf("%d: %s\n", i, js)
+		}
+	}
 }
 
 // trimCommand exports a subset of chain.rlp to a new file.
