@@ -52,6 +52,8 @@ func main() {
 		printGenesisCommand(os.Args[2:])
 	case "trim":
 		trimCommand(os.Args[2:])
+	case "to-list":
+		toListCommand(os.Args[2:])
 	default:
 		fatalf(usage)
 	}
@@ -189,6 +191,41 @@ func generateCommand(args []string) {
 	if err := cfg.writeTestChain(*outdir); err != nil {
 		fatal(err)
 	}
+}
+
+// toListCommand converts a hive chain.rlp file to an rlp-encoded list of blocks.
+func toListCommand(args []string) {
+	flag.CommandLine.Parse(args)
+	if flag.NArg() != 2 {
+		fatalf("Usage: hivechain to-list <chain.rlp> <newchain.rlp>")
+	}
+
+	input, err := os.Open(flag.Arg(0))
+	if err != nil {
+		fatal(err)
+	}
+	defer input.Close()
+
+	list := make([]*types.Block, 0)
+
+	s := rlp.NewStream(bufio.NewReader(input), 0)
+	for i := uint(0); ; i++ {
+		var block types.Block
+		err := s.Decode(&block)
+		if err == io.EOF {
+			break
+		} else if err != nil {
+			fatalf("%d: %v", i, err)
+		}
+		list = append(list, &block)
+	}
+
+	raw, err := rlp.EncodeToBytes(list)
+	if err != nil {
+		fatal(err)
+	}
+
+	os.WriteFile(flag.Arg(1), raw, 644)
 }
 
 func fatalf(format string, args ...interface{}) {
